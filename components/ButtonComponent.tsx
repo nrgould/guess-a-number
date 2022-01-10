@@ -3,7 +3,7 @@ import { Button, StyleSheet, View } from 'react-native';
 
 interface Props {
 	title: string;
-	onPress: () => void;
+	onPress: (arg0: any) => void;
 	color?: string;
 }
 

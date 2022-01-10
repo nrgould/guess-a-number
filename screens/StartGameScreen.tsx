@@ -14,16 +14,16 @@ import NumberContainer from '../components/NumberContainer';
 import colors from '../constants/colors';
 
 interface Props {
-	startGameHandler: (selectedNumber: number) => void;
+	onStartGame: (selectedNumber: number | null) => void;
 }
 
-export default function StartGameScreen({ startGameHandler }: Props) {
+export default function StartGameScreen({ onStartGame }: Props) {
 	const [enteredValue, setEnteredValue] = useState('');
 	const [confirmed, setConfirmed] = useState<boolean>(false);
 	const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
 
 	function numberInputHandler(inputText: any) {
-		setEnteredValue(inputText.replace(/[^0-9]/g, ''));
+		setEnteredValue(inputText.replace(/D/g, ''));
 	}
 
 	function resetInputHandler() {
@@ -58,9 +58,7 @@ export default function StartGameScreen({ startGameHandler }: Props) {
 				<NumberContainer>{selectedNumber}</NumberContainer>
 				<ButtonComponent
 					title='START GAME'
-					onPress={() => {
-						startGameHandler;
-					}}
+					onPress={() => onStartGame(selectedNumber)}
 					color={colors.primary}
 				/>
 			</Card>
