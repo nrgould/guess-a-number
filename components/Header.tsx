@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	headerTitle: {
-		color: 'black',
+		color: 'white',
 		fontSize: 18,
+		fontFamily: 'open-sans-bold',
 	},
 });

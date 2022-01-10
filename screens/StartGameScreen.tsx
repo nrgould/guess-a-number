@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import {
 	StyleSheet,
-	Text,
 	TouchableWithoutFeedback,
 	View,
 	Keyboard,
 	Alert,
 } from 'react-native';
+import BodyText from '../components/BodyText';
 import ButtonComponent from '../components/ButtonComponent';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
+import TitleText from '../components/TitleText';
 import colors from '../constants/colors';
 
 interface Props {
-	onStartGame: (selectedNumber: number | null) => void;
+	onStartGame: (selectedNumber: number) => void;
 }
 
 export default function StartGameScreen({ onStartGame }: Props) {
@@ -54,11 +55,11 @@ export default function StartGameScreen({ onStartGame }: Props) {
 	if (confirmed) {
 		confirmedOutput = (
 			<Card style={styles.summaryContainer}>
-				<Text>You Selected:</Text>
+				<BodyText>You Selected:</BodyText>
 				<NumberContainer>{selectedNumber}</NumberContainer>
 				<ButtonComponent
 					title='START GAME'
-					onPress={() => onStartGame(selectedNumber)}
+					onPress={() => onStartGame(selectedNumber as number)}
 					color={colors.primary}
 				/>
 			</Card>
@@ -68,9 +69,9 @@ export default function StartGameScreen({ onStartGame }: Props) {
 	return (
 		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 			<View style={styles.screen}>
-				<Text style={styles.title}>Start a New Game!</Text>
+				<TitleText style={styles.title}>Start a New Game!</TitleText>
 				<Card style={styles.inputContainer}>
-					<Text>Select a Number</Text>
+					<BodyText>Enter a Number</BodyText>
 					<Input
 						blurOnSubmit
 						autoCapitalize='none'
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 20,
 		marginVertical: 10,
+		fontFamily: 'open-sans-bold',
 	},
 	buttonContainer: {
 		flexDirection: 'row',
@@ -122,12 +124,15 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	input: {
-		width: 64,
+		width: 50,
 		textAlign: 'center',
 		fontWeight: 'bold',
 	},
 	summaryContainer: {
 		margin: 20,
 		alignItems: 'center',
+	},
+	text: {
+		fontFamily: 'open-sans',
 	},
 });

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
 import Card from '../components/Card';
 import NumberContainer from '../components/NumberContainer';
+import TitleText from '../components/TitleText';
 import colors from '../constants/colors';
 
 function generateRandomBetween(
@@ -32,11 +33,7 @@ export default function GameScreen(
 	const currentHigh = useRef<number>(100);
 	const [rounds, setRounds] = useState(0);
 	const [currentGuess, setCurrentGuess] = useState<number>(
-		generateRandomBetween(
-			currentLow.current,
-			currentHigh.current,
-			userChoice
-		)
+		generateRandomBetween(1, 100, userChoice)
 	);
 
 	useEffect(() => {
@@ -62,32 +59,35 @@ export default function GameScreen(
 		} else {
 			currentLow.current = currentGuess;
 		}
-		setCurrentGuess(
-			generateRandomBetween(
-				currentLow.current,
-				currentHigh.current,
-				currentGuess
-			)
+		const nextNumber = generateRandomBetween(
+			currentLow.current,
+			currentHigh.current,
+			currentGuess
 		);
+		setCurrentGuess(nextNumber);
 		setRounds((curRounds) => curRounds + 1);
 	}
 
 	return (
 		<View style={styles.screen}>
-			<Text>Opponent's Guess:</Text>
-			<NumberContainer>{currentGuess}</NumberContainer>
-			<Card style={styles.buttonContainer}>
-				<ButtonComponent
-					title='LOWER'
-					onPress={nextGuessHandler.bind(this, 'lower')}
-					color={colors.accent}
-				/>
-				<ButtonComponent
-					title='HIGHER'
-					onPress={nextGuessHandler.bind(this, 'greater')}
-					color={colors.primary}
-				/>
-			</Card>
+			<View style={styles.numberContainer}>
+				<TitleText>Opponent's Guess:</TitleText>
+				<NumberContainer>{currentGuess}</NumberContainer>
+			</View>
+			<View style={styles.controls}>
+				<Card style={styles.buttonContainer}>
+					<ButtonComponent
+						title='LOWER'
+						onPress={nextGuessHandler.bind(this, 'lower')}
+						color={colors.accent}
+					/>
+					<ButtonComponent
+						title='HIGHER'
+						onPress={nextGuessHandler.bind(this, 'greater')}
+						color={colors.primary}
+					/>
+				</Card>
+			</View>
 		</View>
 	);
 }
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 10,
 		alignItems: 'center',
+		justifyContent: 'space-evenly',
 	},
 	buttonContainer: {
 		flexDirection: 'row',
@@ -104,5 +105,18 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		width: 300,
 		maxWidth: '80%',
+	},
+	controls: {
+		height: '80%',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	title: {
+		fontSize: 32,
+		color: colors.accent,
+		marginBottom: 12,
+	},
+	numberContainer: {
+		alignItems: 'center',
 	},
 });

@@ -5,11 +5,17 @@ interface Props {
 	title: string;
 	onPress: (arg0: any) => void;
 	color?: string;
+	style?: any;
 }
 
-export default function ButtonComponent({ title, onPress, color }: Props) {
+export default function ButtonComponent({
+	title,
+	onPress,
+	color,
+	style,
+}: Props) {
 	return (
-		<View style={styles.button}>
+		<View style={{ ...styles.button, ...style }}>
 			<Button title={title} onPress={onPress} color={color} />
 		</View>
 	);
