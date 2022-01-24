@@ -10,6 +10,7 @@ import BodyText from '../components/BodyText';
 import ButtonComponent from '../components/ButtonComponent';
 import Card from '../components/Card';
 import Input from '../components/Input';
+import MainButton from '../components/MainButton';
 import NumberContainer from '../components/NumberContainer';
 import TitleText from '../components/TitleText';
 import colors from '../constants/colors';
@@ -57,11 +58,10 @@ export default function StartGameScreen({ onStartGame }: Props) {
 			<Card style={styles.summaryContainer}>
 				<BodyText>You Selected:</BodyText>
 				<NumberContainer>{selectedNumber}</NumberContainer>
-				<ButtonComponent
-					title='START GAME'
-					onPress={() => onStartGame(selectedNumber as number)}
-					color={colors.primary}
-				/>
+				<MainButton
+					onPress={() => onStartGame(selectedNumber as number)}>
+					START GAME
+				</MainButton>
 			</Card>
 		);
 	}

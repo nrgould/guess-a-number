@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
-import ButtonComponent from '../components/ButtonComponent';
 import Card from '../components/Card';
+import MainButton from '../components/MainButton';
 import NumberContainer from '../components/NumberContainer';
 import TitleText from '../components/TitleText';
 import colors from '../constants/colors';
+import { Ionicons } from '@expo/vector-icons';
 
 function generateRandomBetween(
 	min: number | React.MutableRefObject<number>,
@@ -76,16 +77,13 @@ export default function GameScreen(
 			</View>
 			<View style={styles.controls}>
 				<Card style={styles.buttonContainer}>
-					<ButtonComponent
-						title='LOWER'
-						onPress={nextGuessHandler.bind(this, 'lower')}
-						color={colors.accent}
-					/>
-					<ButtonComponent
-						title='HIGHER'
-						onPress={nextGuessHandler.bind(this, 'greater')}
-						color={colors.primary}
-					/>
+					<MainButton onPress={nextGuessHandler.bind(this, 'lower')}>
+						<Ionicons name='md-remove' size={24} color='white' />
+					</MainButton>
+					<MainButton
+						onPress={nextGuessHandler.bind(this, 'greater')}>
+						<Ionicons name='md-add' size={24} color='white' />
+					</MainButton>
 				</Card>
 			</View>
 		</View>
@@ -104,7 +102,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		marginTop: 20,
 		width: 300,
-		maxWidth: '80%',
+		maxWidth: '90%',
 	},
 	controls: {
 		height: '80%',
