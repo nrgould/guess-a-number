@@ -1,5 +1,12 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import {
+	Dimensions,
+	Image,
+	ScrollView,
+	StyleSheet,
+	Text,
+	View,
+} from 'react-native';
 import BodyText from '../components/BodyText';
 import MainButton from '../components/MainButton';
 import NumberContainer from '../components/NumberContainer';
@@ -18,28 +25,36 @@ export default function GameOverScreen({
 	onRestart,
 }: Props) {
 	return (
-		<View style={styles.screen}>
-			<TitleText style={styles.title}>Game Over!</TitleText>
-			<View style={styles.imageContainer}>
-				<Image
-					style={styles.image}
-					source={{
-						uri: 'https://ichef.bbci.co.uk/news/976/cpsprodpb/7625/production/_111254203_8d8f9dd1-cecb-4acd-a4d9-9455dffd652d.jpg',
-					}}
-					// source={require('../assets/success.png')}
-					resizeMode='cover'
-				/>
-			</View>
-			<Text style={styles.subtitle}>Your number was:</Text>
-			<NumberContainer>{userChoice}</NumberContainer>
-			<BodyText>
-				It took <Text style={styles.highlight}>{guessRounds}</Text>{' '}
-				rounds of guessing.
-			</BodyText>
-			<MainButton style={{ width: 300 }} onPress={onRestart}>
-				Start New Game
-			</MainButton>
-		</View>
+			<ScrollView>
+				<View style={styles.screen}>
+					<TitleText style={styles.title}>Game Over!</TitleText>
+					<View style={styles.imageContainer}>
+						<Image
+							style={styles.image}
+							source={{
+								uri: 'https://ichef.bbci.co.uk/news/976/cpsprodpb/7625/production/_111254203_8d8f9dd1-cecb-4acd-a4d9-9455dffd652d.jpg',
+							}}
+							// source={require('../assets/success.png')}
+							resizeMode='cover'
+						/>
+					</View>
+					<Text style={styles.subtitle}>Your number was:</Text>
+					<NumberContainer>{userChoice}</NumberContainer>
+					<BodyText
+						style={{
+							marginBottom: 12,
+							fontSize:
+								Dimensions.get('window').height > 400 ? 16 : 20,
+						}}>
+						It took{' '}
+						<Text style={styles.highlight}>{guessRounds}</Text>{' '}
+						rounds of guessing.
+					</BodyText>
+					<MainButton style={{ width: 300 }} onPress={onRestart}>
+						Start New Game
+					</MainButton>
+				</View>
+			</ScrollView>
 	);
 }
 
@@ -48,11 +63,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
+		paddingVertical: 10,
 	},
 	title: {
 		fontSize: 32,
 		color: colors.primary,
-		marginBottom: 12,
+		marginBottom: Dimensions.get('window').height / 50,
 	},
 	subtitle: {
 		fontSize: 20,
@@ -67,13 +83,13 @@ const styles = StyleSheet.create({
 		height: '100%',
 	},
 	imageContainer: {
-		borderRadius: 200,
-		width: 300,
-		height: 300,
+		borderRadius: (Dimensions.get('window').width * 0.7) / 2,
+		width: Dimensions.get('window').width * 0.7,
+		height: Dimensions.get('window').width * 0.7,
 		borderWidth: 3,
 		alignItems: 'center',
 		overflow: 'hidden',
-		marginVertical: 30,
+		marginVertical: Dimensions.get('window').height / 40,
 	},
 	highlight: {
 		color: colors.primary,

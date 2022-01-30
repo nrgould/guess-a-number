@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
+import colors from '../constants/colors';
 
 interface Props {
 	title: string;
@@ -7,24 +8,39 @@ interface Props {
 
 export default function Header({ title }: Props) {
 	return (
-		<View style={styles.header}>
+		<View
+			style={{
+				...styles.headerBase,
+				...Platform.select({
+					ios: styles.headerIOS,
+					android: styles.headerAndroid,
+				}),
+			}}>
 			<Text style={styles.headerTitle}>{title}</Text>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	header: {
+	headerBase: {
 		width: '100%',
 		height: 90,
 		paddingTop: 36,
-		backgroundColor: '#f7287b',
+
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
+	headerIOS: {
+		backgroundColor: '#fff',
+		borderBottomColor: '#ccc',
+		borderBottomWidth: 1,
+	},
+	headerAndroid: {
+		backgroundColor: colors.primary,
+	},
 	headerTitle: {
-		color: 'white',
-		fontSize: 18,
+		color: Platform.OS === 'ios' ? colors.primary : '#fff',
+		fontSize: Platform.OS === 'ios' ? 24 : 18,
 		fontFamily: 'open-sans-bold',
 	},
 });

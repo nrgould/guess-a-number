@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, Dimensions, StyleSheet, View } from 'react-native';
 
 interface Props {
 	title: string;
@@ -23,6 +23,6 @@ export default function ButtonComponent({
 
 const styles = StyleSheet.create({
 	button: {
-		width: 100,
+		width: Dimensions.get('window').width / 4,
 	},
 });
